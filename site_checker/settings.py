@@ -24,7 +24,8 @@ COOKIES_ENABLED = False  # Ботам обычно не нужны куки
 
 # 4. Включаем наш будущий Pipeline
 ITEM_PIPELINES = {
-    "site_checker.pipelines.SiteCheckerPipeline": 300,
+    "scrapy_redis.pipelines.RedisPipeline": 300,
+    #  "site_checker.pipelines.SiteCheckerPipeline": 300,
 }
 
 # 5. Глубина обхода
