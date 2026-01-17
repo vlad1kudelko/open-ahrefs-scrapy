@@ -9,7 +9,6 @@ USER_AGENT = "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot
 ROBOTSTXT_OBEY = True  # Google всегда слушается robots.txt
 
 # 2. Интеграция с Redis (scrapy-redis)
-# Это позволит хранить очередь в Redis и не терять прогресс при перезагрузке
 SCHEDULER = "scrapy_redis.scheduler.Scheduler"
 DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
 REDIS_URL = os.getenv("REDIS_URL", "redis://localhost:6379")

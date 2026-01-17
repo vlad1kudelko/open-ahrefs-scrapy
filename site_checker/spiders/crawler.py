@@ -1,16 +1,11 @@
-import scrapy
+from scrapy_redis.spiders import RedisSpider
 
 from site_checker.items import SiteCheckerItem
 
 
-class CrawlerSpider(scrapy.Spider):
+class MyCrawler(RedisSpider):
     name = "crawler"
-
-    def __init__(self, domain=None, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        if domain:
-            self.allowed_domains = [domain]
-            self.start_urls = [f"https://{domain}/"]
+    redis_key = "crawler:start_urls"
 
     def parse(self, response):
         # 1. Создаем Item для текущей страницы
