@@ -7,6 +7,9 @@ NEWSPIDER_MODULE = "site_checker.spiders"
 # Допустимые уровни: CRITICAL, ERROR, WARNING, INFO, DEBUG
 LOG_LEVEL = "WARNING"
 
+# Включаем все типы ответов (404, 500 и др.)
+HTTPERROR_ALLOW_ALL = True
+
 # 1. Имитация Google-бота
 USER_AGENT = "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
 ROBOTSTXT_OBEY = True  # Google всегда слушается robots.txt
