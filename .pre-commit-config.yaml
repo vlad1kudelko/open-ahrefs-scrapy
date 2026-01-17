@@ -22,6 +22,6 @@ repos:
     hooks:
       - id: flake8
         name: flake8
-        args: ["--ignore=E203,E221,E501,W503", "."]
+        args: ["--ignore=E203,E221,E501,W503", "--exclude=.venv", "."]
         types: [python]
         pass_filenames: false
