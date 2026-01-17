@@ -1,3 +1,5 @@
+from urllib.parse import urlparse
+
 from scrapy_redis.spiders import RedisSpider
 
 from site_checker.items import SiteCheckerItem
@@ -18,8 +20,16 @@ class MyCrawler(RedisSpider):
         item["referer"] = response.meta.get("prev_url", "")
         yield item
 
-        # 2. Ищем ссылки для перехода дальше
-        for link in response.css("a::attr(href)").getall():
-            yield response.follow(
-                link, callback=self.parse, meta={"prev_url": response.url}
-            )
+        # 2. Если сейчас стоим на странице с нашим целевым доменом
+        target_domain = response.meta.get("target_domain")
+        if not target_domain:
+            target_domain = urlparse(response.url).netloc
+        current_domain = urlparse(response.url).netloc
+        if target_domain == current_domain:
+            # 3. Ищем ссылки для перехода дальше
+            for link in response.css("a::attr(href)").getall():
+                yield response.follow(
+                    link,
+                    callback=self.parse,
+                    meta={"target_domain": target_domain, "prev_url": response.url},
+                )

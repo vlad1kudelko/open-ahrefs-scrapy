@@ -4,6 +4,9 @@ BOT_NAME = "site_checker"
 SPIDER_MODULES = ["site_checker.spiders"]
 NEWSPIDER_MODULE = "site_checker.spiders"
 
+# Допустимые уровни: CRITICAL, ERROR, WARNING, INFO, DEBUG
+LOG_LEVEL = "WARNING"
+
 # 1. Имитация Google-бота
 USER_AGENT = "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
 ROBOTSTXT_OBEY = True  # Google всегда слушается robots.txt
