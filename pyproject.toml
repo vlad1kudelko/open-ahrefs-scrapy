@@ -8,3 +8,8 @@ dependencies = [
     "scrapy>=2.14.1",
     "scrapy-redis>=0.9.1",
 ]
+
+[dependency-groups]
+dev = [
+    "pre-commit>=4.5.1",
+]
