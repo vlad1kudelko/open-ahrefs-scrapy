@@ -1,0 +1,25 @@
+services:
+  crawler:
+    build: .
+    depends_on:
+      - redis
+    environment:
+      - REDIS_URL=redis://redis:6379
+
+  redis:
+    image: redis
+    ports:
+      - 6379:6379
+    volumes:
+      - redis_data:/data
+
+  redis_ui:
+    image: redis/redisinsight:latest
+    ports:
+      - 5540:5540
+    volumes:
+      - redis_ui_data:/data
+
+volumes:
+  redis_data:
+  redis_ui_data:

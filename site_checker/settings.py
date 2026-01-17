@@ -1,3 +1,5 @@
+import os
+
 BOT_NAME = "site_checker"
 SPIDER_MODULES = ["site_checker.spiders"]
 NEWSPIDER_MODULE = "site_checker.spiders"
@@ -10,7 +12,7 @@ ROBOTSTXT_OBEY = True  # Google всегда слушается robots.txt
 # Это позволит хранить очередь в Redis и не терять прогресс при перезагрузке
 SCHEDULER = "scrapy_redis.scheduler.Scheduler"
 DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
-REDIS_URL = "redis://localhost:6379"
+REDIS_URL = os.getenv("REDIS_URL", "redis://localhost:6379")
 SCHEDULER_PERSIST = True  # Не очищать очередь при выходе
 
 # 3. Настройки производительности и вежливости
