@@ -52,7 +52,7 @@ redis-cli rpush crawler:start_urls "https://example.com/"
   "title": "Contacts | My Site",
   "redirect_urls": ["http://example.com/contacts/"],
   "referer": "https://example.com/",
-  "checked_at": "20260118060512987654:https://example.com/"
+  "task": "20260118060512987654:https://example.com/"
 }
 ```
 
