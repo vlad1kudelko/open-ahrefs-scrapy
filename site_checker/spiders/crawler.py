@@ -31,7 +31,6 @@ class MyCrawler(RedisSpider):
         item["url"] = response.url
         item["status"] = response.status
         item["title"] = response.css("title::text").get() if isHTML else None
-        item["redirect_times"] = response.meta.get("redirect_times", 0)
         item["redirect_urls"] = response.meta.get("redirect_urls", [])
         item["referer"] = response.meta.get("prev_url", "")
         yield item
@@ -64,7 +63,6 @@ class MyCrawler(RedisSpider):
             item["title"] = "Error: Connection Timeout"
         else:
             item["title"] = f"Error: {failure.getErrorMessage()}"
-        item["redirect_times"] = failure.request.meta.get("redirect_times", 0)
         item["redirect_urls"] = failure.request.meta.get("redirect_urls", [])
         item["referer"] = failure.request.meta.get("prev_url", "")
         yield item

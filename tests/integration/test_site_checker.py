@@ -32,7 +32,6 @@ def test_site_checker_200(redis_client, redis_del):
             "url": "https://example.com/",
             "status": 200,
             "title": "Example Domain",
-            "redirect_times": 0,
             "redirect_urls": [],
             "referer": "",
         }
@@ -43,7 +42,6 @@ def test_site_checker_200(redis_client, redis_del):
             "url": "http://www.iana.org/help/example-domains",
             "status": 200,
             "title": "Example Domains",
-            "redirect_times": 2,
             "redirect_urls": [
                 "https://iana.org/domains/example",
                 "https://www.iana.org/domains/example",
@@ -61,7 +59,6 @@ def test_site_checker_404(redis_client, redis_del):
             "url": "https://ifconfig.me/404",
             "status": 404,
             "title": None,
-            "redirect_times": 0,
             "redirect_urls": [],
             "referer": "",
         }
@@ -76,7 +73,6 @@ def test_site_checker_302_count1(redis_client, redis_del):
             "url": "http://hb.opencpu.org/get",
             "status": 200,
             "title": None,
-            "redirect_times": 1,
             "redirect_urls": ["http://hb.opencpu.org/redirect/1"],
             "referer": "",
         }
@@ -91,7 +87,6 @@ def test_site_checker_302_count3(redis_client, redis_del):
             "url": "http://hb.opencpu.org/get",
             "status": 200,
             "title": None,
-            "redirect_times": 3,
             "redirect_urls": [
                 "http://hb.opencpu.org/redirect/3",
                 "http://hb.opencpu.org/relative-redirect/2",
@@ -110,7 +105,6 @@ def test_site_checker_999_domain(redis_client, redis_del):
             "url": "http://alskdjfalsdfj.com/",
             "status": 999,
             "title": "Error: DNS Lookup Failed",
-            "redirect_times": 0,
             "redirect_urls": [],
             "referer": "",
         }
@@ -128,7 +122,6 @@ def test_site_checker_999_redirect(redis_client, redis_del):
             "url": "http://alskdjfalsdfj.com",
             "status": 999,
             "title": "Error: DNS Lookup Failed",
-            "redirect_times": 1,
             "redirect_urls": [
                 "http://hb.opencpu.org/redirect-to?url=http://alskdjfalsdfj.com"
             ],
