@@ -17,6 +17,9 @@ class MyCrawler(RedisSpider):
                 data.decode("utf-8"),
                 callback=self.parse,
                 errback=self.handle_error,
+                meta={
+                    "dont_retry": True,
+                },
             )
         ]
 
@@ -44,7 +47,11 @@ class MyCrawler(RedisSpider):
                     link,
                     callback=self.parse,
                     errback=self.handle_error,
-                    meta={"target_domain": target_domain, "prev_url": response.url},
+                    meta={
+                        "dont_retry": True,
+                        "target_domain": target_domain,
+                        "prev_url": response.url,
+                    },
                 )
 
     def handle_error(self, failure):
