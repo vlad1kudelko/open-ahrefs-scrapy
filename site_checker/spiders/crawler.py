@@ -15,17 +15,21 @@ class MyCrawler(RedisSpider):
     def make_request_from_data(self, data):
         link = data.decode("utf-8")
         timestamp = datetime.datetime.now(datetime.UTC).strftime("%Y%m%d%H%M%S%f")
-        return [
-            scrapy.Request(
-                link,
-                callback=self.parse,
-                errback=self.handle_error,
-                meta={
-                    "dont_retry": True,
-                    "task": f"{timestamp}:{link}",
-                },
-            )
-        ]
+        try:
+            return [
+                scrapy.Request(
+                    link,
+                    callback=self.parse,
+                    errback=self.handle_error,
+                    meta={
+                        "dont_retry": True,
+                        "task": f"{timestamp}:{link}",
+                    },
+                )
+            ]
+        except ValueError:
+            self.logger.warning(f"Error: Некорректная задача в {self.redis_key}")
+            return []
 
     def parse(self, response):
         # 0. Начальная проверка страницы
