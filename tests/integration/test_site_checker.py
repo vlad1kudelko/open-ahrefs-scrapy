@@ -27,6 +27,8 @@ def wait_list(redis_client, key):
 def test_site_checker_200(redis_client, redis_del):
     redis_client.rpush("crawler:start_urls", "https://example.com/")
     first = wait_list(redis_client, "crawler:items")
+    assert len(first["task"]) > 21
+    del first["task"]
     assert json.dumps(first) == json.dumps(
         {
             "url": "https://example.com/",
@@ -37,6 +39,8 @@ def test_site_checker_200(redis_client, redis_del):
         }
     )
     second = wait_list(redis_client, "crawler:items")
+    assert len(second["task"]) > 21
+    del second["task"]
     assert json.dumps(second) == json.dumps(
         {
             "url": "http://www.iana.org/help/example-domains",
@@ -54,6 +58,8 @@ def test_site_checker_200(redis_client, redis_del):
 def test_site_checker_404(redis_client, redis_del):
     redis_client.rpush("crawler:start_urls", "https://ifconfig.me/404")
     first = wait_list(redis_client, "crawler:items")
+    assert len(first["task"]) > 21
+    del first["task"]
     assert json.dumps(first) == json.dumps(
         {
             "url": "https://ifconfig.me/404",
@@ -68,6 +74,8 @@ def test_site_checker_404(redis_client, redis_del):
 def test_site_checker_302_count1(redis_client, redis_del):
     redis_client.rpush("crawler:start_urls", "http://hb.opencpu.org/redirect/1")
     first = wait_list(redis_client, "crawler:items")
+    assert len(first["task"]) > 21
+    del first["task"]
     assert json.dumps(first) == json.dumps(
         {
             "url": "http://hb.opencpu.org/get",
@@ -82,6 +90,8 @@ def test_site_checker_302_count1(redis_client, redis_del):
 def test_site_checker_302_count3(redis_client, redis_del):
     redis_client.rpush("crawler:start_urls", "http://hb.opencpu.org/redirect/3")
     first = wait_list(redis_client, "crawler:items")
+    assert len(first["task"]) > 21
+    del first["task"]
     assert json.dumps(first) == json.dumps(
         {
             "url": "http://hb.opencpu.org/get",
@@ -100,6 +110,8 @@ def test_site_checker_302_count3(redis_client, redis_del):
 def test_site_checker_999_domain(redis_client, redis_del):
     redis_client.rpush("crawler:start_urls", "http://alskdjfalsdfj.com/")
     first = wait_list(redis_client, "crawler:items")
+    assert len(first["task"]) > 21
+    del first["task"]
     assert json.dumps(first) == json.dumps(
         {
             "url": "http://alskdjfalsdfj.com/",
@@ -117,6 +129,8 @@ def test_site_checker_999_redirect(redis_client, redis_del):
         "http://hb.opencpu.org/redirect-to?url=http://alskdjfalsdfj.com",
     )
     first = wait_list(redis_client, "crawler:items")
+    assert len(first["task"]) > 21
+    del first["task"]
     assert json.dumps(first) == json.dumps(
         {
             "url": "http://alskdjfalsdfj.com",

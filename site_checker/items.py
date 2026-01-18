@@ -7,3 +7,4 @@ class SiteCheckerItem(scrapy.Item):
     title = scrapy.Field()
     redirect_urls = scrapy.Field()  # Список URL в цепочке редиректов
     referer = scrapy.Field()  # Для отслеживания связей (откуда пришли)
+    task = scrapy.Field()  # 20260118060512987654:https://example.com/404
