@@ -21,12 +21,12 @@ def wait_list(redis_client, key):
         time.sleep(1)
     else:
         raise ValueError("Результат пуст")
+    return json.loads(redis_client.lpop(key))
 
 
 def test_site_checker_200(redis_client, redis_del):
     redis_client.rpush("crawler:start_urls", "https://example.com/")
-    wait_list(redis_client, "crawler:items")
-    first = json.loads(redis_client.lpop("crawler:items"))
+    first = wait_list(redis_client, "crawler:items")
     assert json.dumps(first) == json.dumps(
         {
             "url": "https://example.com/",
@@ -37,12 +37,25 @@ def test_site_checker_200(redis_client, redis_del):
             "referer": "",
         }
     )
+    second = wait_list(redis_client, "crawler:items")
+    assert json.dumps(second) == json.dumps(
+        {
+            "url": "http://www.iana.org/help/example-domains",
+            "status": 200,
+            "title": "Example Domains",
+            "redirect_times": 2,
+            "redirect_urls": [
+                "https://iana.org/domains/example",
+                "https://www.iana.org/domains/example",
+            ],
+            "referer": "https://example.com/",
+        }
+    )
 
 
 def test_site_checker_404(redis_client, redis_del):
     redis_client.rpush("crawler:start_urls", "https://ifconfig.me/404")
-    wait_list(redis_client, "crawler:items")
-    first = json.loads(redis_client.lpop("crawler:items"))
+    first = wait_list(redis_client, "crawler:items")
     assert json.dumps(first) == json.dumps(
         {
             "url": "https://ifconfig.me/404",
@@ -50,6 +63,40 @@ def test_site_checker_404(redis_client, redis_del):
             "title": None,
             "redirect_times": 0,
             "redirect_urls": [],
+            "referer": "",
+        }
+    )
+
+
+def test_site_checker_302_count1(redis_client, redis_del):
+    redis_client.rpush("crawler:start_urls", "http://hb.opencpu.org/redirect/1")
+    first = wait_list(redis_client, "crawler:items")
+    assert json.dumps(first) == json.dumps(
+        {
+            "url": "http://hb.opencpu.org/get",
+            "status": 200,
+            "title": None,
+            "redirect_times": 1,
+            "redirect_urls": ["http://hb.opencpu.org/redirect/1"],
+            "referer": "",
+        }
+    )
+
+
+def test_site_checker_302_count3(redis_client, redis_del):
+    redis_client.rpush("crawler:start_urls", "http://hb.opencpu.org/redirect/3")
+    first = wait_list(redis_client, "crawler:items")
+    assert json.dumps(first) == json.dumps(
+        {
+            "url": "http://hb.opencpu.org/get",
+            "status": 200,
+            "title": None,
+            "redirect_times": 3,
+            "redirect_urls": [
+                "http://hb.opencpu.org/redirect/3",
+                "http://hb.opencpu.org/relative-redirect/2",
+                "http://hb.opencpu.org/relative-redirect/1",
+            ],
             "referer": "",
         }
     )
