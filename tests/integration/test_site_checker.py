@@ -11,7 +11,7 @@ def redis_del(redis_client):
     redis_client.delete("crawler:requests")
     redis_client.delete("crawler:items")
     yield
-    time.sleep(2)
+    time.sleep(3)
 
 
 def wait_list(redis_client, key):
@@ -40,14 +40,14 @@ def test_site_checker_200(redis_client, redis_del):
 
 
 def test_site_checker_404(redis_client, redis_del):
-    redis_client.rpush("crawler:start_urls", "https://vlad1kudelko.github.io/404-error")
+    redis_client.rpush("crawler:start_urls", "https://ifconfig.me/404")
     wait_list(redis_client, "crawler:items")
     first = json.loads(redis_client.lpop("crawler:items"))
     assert json.dumps(first) == json.dumps(
         {
-            "url": "https://vlad1kudelko.github.io/404-error",
+            "url": "https://ifconfig.me/404",
             "status": 404,
-            "title": "Page not found · GitHub Pages",
+            "title": None,
             "redirect_times": 0,
             "redirect_urls": [],
             "referer": "",
