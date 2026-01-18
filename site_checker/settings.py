@@ -12,7 +12,6 @@ HTTPERROR_ALLOW_ALL = True
 
 # 1. Имитация Google-бота
 USER_AGENT = "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
-ROBOTSTXT_OBEY = True  # Google всегда слушается robots.txt
 
 # 2. Интеграция с Redis (scrapy-redis)
 SCHEDULER = "scrapy_redis.scheduler.Scheduler"

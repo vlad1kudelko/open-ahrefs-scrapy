@@ -100,3 +100,38 @@ def test_site_checker_302_count3(redis_client, redis_del):
             "referer": "",
         }
     )
+
+
+def test_site_checker_999_domain(redis_client, redis_del):
+    redis_client.rpush("crawler:start_urls", "http://alskdjfalsdfj.com/")
+    first = wait_list(redis_client, "crawler:items")
+    assert json.dumps(first) == json.dumps(
+        {
+            "url": "http://alskdjfalsdfj.com/",
+            "status": 999,
+            "title": "Error: DNS Lookup Failed",
+            "redirect_times": 0,
+            "redirect_urls": [],
+            "referer": "",
+        }
+    )
+
+
+def test_site_checker_999_redirect(redis_client, redis_del):
+    redis_client.rpush(
+        "crawler:start_urls",
+        "http://hb.opencpu.org/redirect-to?url=http://alskdjfalsdfj.com",
+    )
+    first = wait_list(redis_client, "crawler:items")
+    assert json.dumps(first) == json.dumps(
+        {
+            "url": "http://alskdjfalsdfj.com",
+            "status": 999,
+            "title": "Error: DNS Lookup Failed",
+            "redirect_times": 1,
+            "redirect_urls": [
+                "http://hb.opencpu.org/redirect-to?url=http://alskdjfalsdfj.com"
+            ],
+            "referer": "",
+        }
+    )
