@@ -20,8 +20,8 @@ REDIS_URL = os.getenv("REDIS_URL", "redis://localhost:6379")
 SCHEDULER_PERSIST = True  # Не очищать очередь при выходе
 
 # 3. Настройки производительности и вежливости
-CONCURRENT_REQUESTS = 16  # Не стоит ставить слишком много, чтобы не забанили
-DOWNLOAD_DELAY = 0.5  # Задержка 500мс (как у вежливого бота)
+CONCURRENT_REQUESTS = 30  # Одновременных запросов
+DOWNLOAD_DELAY = 0.05  # Задержка в секундах
 COOKIES_ENABLED = False  # Ботам обычно не нужны куки
 
 # 4. Включаем наш будущий Pipeline
