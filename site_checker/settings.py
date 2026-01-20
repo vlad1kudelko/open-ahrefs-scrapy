@@ -14,8 +14,8 @@ HTTPERROR_ALLOW_ALL = True
 USER_AGENT = "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
 
 # 2. Интеграция с Redis (scrapy-redis)
-SCHEDULER = "scrapy_redis.scheduler.Scheduler"
-DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
+#  SCHEDULER = "scrapy_redis.scheduler.Scheduler"
+#  DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
 REDIS_URL = os.getenv("REDIS_URL", "redis://localhost:6379")
 SCHEDULER_PERSIST = True  # Не очищать очередь при выходе
 
@@ -34,5 +34,11 @@ ITEM_PIPELINES = {
 # 5. Глубина обхода
 DEPTH_LIMIT = 50  # Чтобы не уйти в бесконечные циклы
 DEPTH_PRIORITY = 1  # Обход в ширину (BFS) - лучше для SEO аудита
-SCHEDULER_DISK_QUEUE = "scrapy.squeues.PickleFifoDiskQueue"
-SCHEDULER_MEMORY_QUEUE = "scrapy.squeues.FifoMemoryQueue"
+#  SCHEDULER_DISK_QUEUE = "scrapy.squeues.PickleFifoDiskQueue"
+#  SCHEDULER_MEMORY_QUEUE = "scrapy.squeues.FifoMemoryQueue"
+
+# 6. Bloom Filter
+SCHEDULER = "scrapy_redis_bloomfilter.scheduler.Scheduler"
+DUPEFILTER_CLASS = "scrapy_redis_bloomfilter.dupefilter.RFPDupeFilter"
+BLOOMFILTER_BIT = 30  # Размер фильтра (2^30 бит ≈ 128 МБ)
+BLOOMFILTER_HASH_NUMBER = 6  # Количество хеш-функций
