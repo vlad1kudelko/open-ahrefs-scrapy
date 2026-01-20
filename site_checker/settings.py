@@ -20,7 +20,7 @@ REDIS_URL = os.getenv("REDIS_URL", "redis://localhost:6379")
 SCHEDULER_PERSIST = True  # Не очищать очередь при выходе
 
 # 3. Настройки производительности и вежливости
-CONCURRENT_REQUESTS = 30  # Одновременных запросов
+CONCURRENT_REQUESTS = 100  # Одновременных запросов
 DOWNLOAD_DELAY = 0.05  # Задержка в секундах
 COOKIES_ENABLED = False  # Ботам обычно не нужны куки
 
