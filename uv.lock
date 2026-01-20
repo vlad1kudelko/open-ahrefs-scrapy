@@ -441,6 +441,7 @@ source = { virtual = "." }
 dependencies = [
     { name = "scrapy" },
     { name = "scrapy-redis" },
+    { name = "scrapy-redis-bloomfilter" },
 ]
 
 [package.dev-dependencies]
@@ -454,6 +455,7 @@ dev = [
 requires-dist = [
     { name = "scrapy", specifier = ">=2.14.1" },
     { name = "scrapy-redis", specifier = ">=0.9.1" },
+    { name = "scrapy-redis-bloomfilter", specifier = ">=0.8.1" },
 ]
 
 [package.metadata.requires-dev]
@@ -746,6 +748,18 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/cd/97/1ef7dc41b60b56dd33fdb31b81e6eddba3421be70f2adfee5dba961bc471/scrapy_redis-0.9.1.tar.gz", hash = "sha256:5f8b18611fadb2d7726870535ad3b0d28e0a7a1375d807101579237462e346e7", size = 268008, upload-time = "2024-07-06T21:59:19.497Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/82/d1/6ff55616d376d9a9f88ff2329838928bb5041773131251d70e310fc39e1d/scrapy_redis-0.9.1-py2.py3-none-any.whl", hash = "sha256:9d15ba3423fd35d23e3795fb9e063532dedc272dd38efd1409b52a15a22a2490", size = 18146, upload-time = "2024-07-06T21:59:15.472Z" },
+]
+
+[[package]]
+name = "scrapy-redis-bloomfilter"
+version = "0.8.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "scrapy-redis" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/73/9b/40be6b7e3732928e17291040a7a5ad1e59c3a1e542789b9e4c9d18190d49/Scrapy-Redis-BloomFilter-0.8.1.tar.gz", hash = "sha256:53f769bf2c3a858aa0e8e19ff66f54557d22526f4fb7bb6219e1d9183db7beee", size = 5676, upload-time = "2021-01-03T18:06:25.409Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/51/10/c4cb99217b54fe769e8a45c75be19a400d196001d58d3bd0b53e5753cc34/Scrapy_Redis_BloomFilter-0.8.1-py2.py3-none-any.whl", hash = "sha256:8da71c092081f91f2091f93e0f240bef1869be69293138a643d1eb69fa55383f", size = 6311, upload-time = "2021-01-03T18:06:24.314Z" },
 ]
 
 [[package]]

@@ -7,7 +7,7 @@ import pytest
 @pytest.fixture(scope="function")
 def redis_del(redis_client):
     redis_client.delete("crawler:start_urls")
-    redis_client.delete("crawler:dupefilter")
+    redis_client.delete("crawler:bloomfilter")
     redis_client.delete("crawler:requests")
     redis_client.delete("crawler:items")
     yield
