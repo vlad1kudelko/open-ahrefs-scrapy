@@ -5,7 +5,7 @@ SPIDER_MODULES = ["site_checker.spiders"]
 NEWSPIDER_MODULE = "site_checker.spiders"
 
 # Допустимые уровни: CRITICAL, ERROR, WARNING, INFO, DEBUG
-LOG_LEVEL = "WARNING"
+LOG_LEVEL = "INFO"
 
 # Включаем все типы ответов (404, 500 и др.)
 HTTPERROR_ALLOW_ALL = True
@@ -19,10 +19,11 @@ DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
 REDIS_URL = os.getenv("REDIS_URL", "redis://localhost:6379")
 SCHEDULER_PERSIST = True  # Не очищать очередь при выходе
 
-# 3. Настройки производительности и вежливости
+# 3. Настройки производительности
 CONCURRENT_REQUESTS = 100  # Одновременных запросов
-DOWNLOAD_DELAY = 0.05  # Задержка в секундах
-COOKIES_ENABLED = False  # Ботам обычно не нужны куки
+DOWNLOAD_DELAY = 0  # Задержка в секундах
+COOKIES_ENABLED = False  # Ботам куки не нужны
+RETRY_TIMES = 1  # Чтобы не тратить время на битые ссылки
 
 # 4. Включаем наш будущий Pipeline
 ITEM_PIPELINES = {
